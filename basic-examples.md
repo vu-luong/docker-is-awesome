@@ -11,7 +11,7 @@
 	--name web_test busybox:1.29 /bin/sh
 ```
 
-### 3. List containers:
+### 3. List running containers:
 
 ```
 	docker ps
@@ -54,4 +54,19 @@
 ```
 	docker create --cidfile /tmp/web.cid nginx
 	cat /tmp/web.cid
+```
+
+### 10. List all containers
+
+```
+	docker ps -a
+```
+
+### 11. Container network linking
+
+```
+	MAILER_CID=$(docker run -d dockerinaction/ch2_mailer)
+	WEB_CID=$(docker run -d nginx)
+	AGENT_CID=$(docker run -d --link $WEB_CID:insideweb \
+		--link $MAILER_CID:insidemailer dockerinaction/ch2_agent)
 ```
